@@ -1,5 +1,15 @@
 version: "3"
 
+# Environment variables
+# ----------------------
+# POSTGRES_USER: The username of the default user
+# POSTGRES_PASSWORD: The password of the default user
+# POSTGRES_DATA: The path to the data directory (bind)
+#
+# PGADMIN_EMAIL: The email address of the default user
+# PGADMIN_PASSWORD: The password of the default user
+# PGADMIN_DATA: The path to the data directory (bind)
+
 services:
   db:
     image: postgres
