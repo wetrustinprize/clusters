@@ -3,9 +3,14 @@ FROM bellsoft/liberica-openjdk-alpine:18
 RUN mkdir /magma
 RUN mkdir /magma-bin
 
+# Server Port
 EXPOSE 25565
+
+# RCON Port
 EXPOSE 25575
-EXPOSE 24454
+
+# Simple Voice Mod
+EXPOSE 24454/udp
 
 WORKDIR /magma-bin
 RUN wget https://git.magmafoundation.org/api/v4/projects/5/packages/maven/org/magmafoundation/Magma/1.18.2-40.2.1-606f9b2c/Magma-1.18.2-40.2.1-606f9b2c-server.jar -O Magma.jar

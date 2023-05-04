@@ -15,7 +15,7 @@ services:
       # Server port and rcon port
       - 25565:25565
       - 25575:25575
-      # Voice chat
-      - 24454:24454
+      # Simple Voice Chat port
+      - 24454:24454/udp
     volumes:
       - ${PSMP_BIND}:/magma
