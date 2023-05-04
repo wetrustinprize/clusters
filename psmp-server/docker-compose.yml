@@ -12,8 +12,9 @@ services:
     environment:
       - MC_RAM=${MC_RAM-1G}
     ports:
-      # Server port
+      # Server port and rcon port
       - 25565:25565
+      - 25575:25575
       # Voice chat
       - 24454:24454
     volumes:
