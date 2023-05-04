@@ -4,7 +4,7 @@
 
 This is a simple `dockerfile` and `docker-compose` for a [QSMP][2]-like server for me and my friends.
 
-It runs Forge + Bukkit using [Magma][3].
+It runs using [Magma][3].
 
 ## Steps to deploy:
 
