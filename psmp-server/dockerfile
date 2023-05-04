@@ -1,0 +1,25 @@
+FROM openjdk:8-jre
+
+RUN mkdir /magma
+WORKDIR /magma
+ENV GIT_HASH "d04e549e"
+ENV MC_RAM="1G"
+
+#https://magmafoundation.org/#download
+RUN wget https://github.com/magmafoundation/Magma/releases/download/v${GIT_HASH}-CUSTOM/Magma-${GIT_HASH}-STABLE-server.jar
+
+RUN java -jar Magma-${GIT_HASH}-STABLE-server.jar nogui
+RUN echo 'eula=true' > eula.txt
+
+COPY server.properties .
+COPY bukkit.yml .
+COPY spigot.yml .
+COPY paper.yml .
+COPY magma.yml .
+COPY ops.json .
+
+EXPOSE 25565
+EXPOSE 25575
+VOLUME [ "/magma/plugins", "/magma/mods", "/magma/config", "/magma/world", "/magma/logs" ]
+
+CMD java -server -Xms${MC_RAM} -Xmx${MC_RAM} -Dfml.queryResult=confirm -XX:+CMSClassUnloadingEnabled -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -Djline.terminal=jline.UnsupportedTerminal -jar Magma-${GIT_HASH}-STABLE-server.jar nogui
