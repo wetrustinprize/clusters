@@ -1,25 +1,13 @@
-FROM openjdk:8-jre
+FROM bellsoft/liberica-openjdk-alpine:18
 
 RUN mkdir /magma
-WORKDIR /magma
-ENV GIT_HASH "d04e549e"
-ENV MC_RAM="1G"
-
-#https://magmafoundation.org/#download
-RUN wget https://github.com/magmafoundation/Magma/releases/download/v${GIT_HASH}-CUSTOM/Magma-${GIT_HASH}-STABLE-server.jar
-
-RUN java -jar Magma-${GIT_HASH}-STABLE-server.jar nogui
-RUN echo 'eula=true' > eula.txt
-
-COPY server.properties .
-COPY bukkit.yml .
-COPY spigot.yml .
-COPY paper.yml .
-COPY magma.yml .
-COPY ops.json .
+RUN mkdir /magma-bin
 
 EXPOSE 25565
 EXPOSE 25575
-VOLUME [ "/magma/plugins", "/magma/mods", "/magma/config", "/magma/world", "/magma/logs" ]
 
-CMD java -server -Xms${MC_RAM} -Xmx${MC_RAM} -Dfml.queryResult=confirm -XX:+CMSClassUnloadingEnabled -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -Djline.terminal=jline.UnsupportedTerminal -jar Magma-${GIT_HASH}-STABLE-server.jar nogui
+WORKDIR /magma-bin
+RUN wget https://git.magmafoundation.org/api/v4/projects/5/packages/maven/org/magmafoundation/Magma/1.18.2-40.2.1-606f9b2c/Magma-1.18.2-40.2.1-606f9b2c-server.jar -O Magma.jar
+
+WORKDIR /magma
+CMD java -server -Duser.dir=/magma -Xms${MC_RAM} -Xmx${MC_RAM} -jar /magma-bin/Magma.jar nogui

@@ -1,9 +1,18 @@
 version: '3.9'
+
+# Environment variables
+#
+# MC_RAM: Amount of RAM to allocate to the server. Defaults to 1G.
+# PSMP_BIND: Path to bind to the server in your host.
+#
+
 services:
   magma-server:
+    container_name: magma-server
     build: .
-    container_name: magma
+    environment:
+      - MC_RAM=${MC_RAM-1G}
     ports:
       - 25565:25565
     volumes:
-      - "${PSMP_BIND}:/magma"
+      - ${PSMP_BIND}:/magma
