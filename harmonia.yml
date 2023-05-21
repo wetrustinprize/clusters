@@ -30,7 +30,7 @@ services:
       - ${JELLYFIN_BIND}:/config
       - ${MOVIES_BIND}:/media/movies
       - ${TV_BIND}:/media/tv
-      - ${MUSIC_BIND}:/media/music
+      - ${MUSICS_BIND}:/media/music
     ports:
       - 8096:8096
     networks:
