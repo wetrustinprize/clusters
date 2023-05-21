@@ -12,7 +12,7 @@
 #
 # DOWNLOADS_BIND: The folder where your downloads are stored
 # MOVIES_BIND: The folder where your movies are stored
-# MUSIC_BIND: The folder where your music is stored
+# MUSICS_BIND: The folder where your music is stored
 # TV_BIND: The folder where your TV shows are stored
 
 version: "3.7"
@@ -97,7 +97,7 @@ services:
       - TZ=Europe/London
     volumes:
       - ${LIDARR_BIND}:/config
-      - ${MUSIC_BIND}:/music
+      - ${MUSICS_BIND}:/music
       - ${DOWNLOADS_BIND}:/downloads
     ports:
       - 8686:8686
