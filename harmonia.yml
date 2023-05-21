@@ -1,4 +1,6 @@
-# This is a docker-compose file for running Sonarr, Radarr, Bazarr and Jellyfin
+# Mega docker-compose file for running all my entertainment media services
+
+# This is a docker-compose file for running Sonarr, Radarr, Bazarr, Lidarr and Jellyfin
 # It is based on the linuxserver.io images
 
 # ENVIRONMENT VARIABLES
@@ -6,12 +8,13 @@
 # RADARR_BIND: The folder where Radarr will store its data
 # JELLYFIN_BIND: The folder where Jellyfin will store its data
 # BAZARR_BIND: The folder where Bazarr will store its data
+# LIDARR_BIND: The folder where Lidarr will store its data
 #
 # DOWNLOADS_BIND: The folder where your downloads are stored
 # MOVIES_BIND: The folder where your movies are stored
 # TV_BIND: The folder where your TV shows are stored
 
-version: '3.7'
+version: "3.7"
 
 services:
   jellyfin:
@@ -29,7 +32,7 @@ services:
     ports:
       - 8096:8096
     networks:
-      - jellyfin
+      - harmonia
 
   radarr:
     image: linuxserver/radarr:latest
@@ -46,7 +49,7 @@ services:
     ports:
       - 7878:7878
     networks:
-      - jellyfin
+      - harmonia
 
   sonarr:
     image: linuxserver/sonarr:latest
@@ -63,7 +66,7 @@ services:
     ports:
       - 8989:8989
     networks:
-      - jellyfin
+      - harmonia
 
   bazarr:
     image: linuxserver/bazarr:latest
@@ -80,8 +83,25 @@ services:
     ports:
       - 6767:6767
     networks:
-      - jellyfin
+      - harmonia
+
+  lidarr:
+    image: linuxserver/lidarr:latest
+    container_name: lidarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ${LIDARR_BIND}:/config
+      - ${MOVIES_BIND}:/music
+      - ${DOWNLOADS_BIND}:/downloads
+    ports:
+      - 8686:8686
+    networks:
+      - harmonia
 
 networks:
-  jellyfin:
+  harmonia:
     driver: bridge
