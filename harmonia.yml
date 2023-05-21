@@ -9,6 +9,7 @@
 # JELLYFIN_BIND: The folder where Jellyfin will store its data
 # BAZARR_BIND: The folder where Bazarr will store its data
 # LIDARR_BIND: The folder where Lidarr will store its data
+# PROWLARR_BIND: The folder where Prowlarr will store its data
 #
 # DOWNLOADS_BIND: The folder where your downloads are stored
 # MOVIES_BIND: The folder where your movies are stored
@@ -101,6 +102,24 @@ services:
       - ${DOWNLOADS_BIND}:/downloads
     ports:
       - 8686:8686
+    networks:
+      - harmonia
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ${PROWLARR_BIND}:/config
+      - ${MOVIES_BIND}:/movies
+      - ${TV_BIND}:/tv
+      - ${MUSICS_BIND}:/music
+    ports:
+      - 9696:9696
     networks:
       - harmonia
 
