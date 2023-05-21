@@ -1,10 +1,11 @@
-# This is a docker-compose file for running Sonarr, Radarr and Jellyfin
+# This is a docker-compose file for running Sonarr, Radarr, Bazarr and Jellyfin
 # It is based on the linuxserver.io images
 
 # ENVIRONMENT VARIABLES
-# SONNAR_BIND: The folder where Sonarr will store its data
+# SONARR_BIND: The folder where Sonarr will store its data
 # RADARR_BIND: The folder where Radarr will store its data
 # JELLYFIN_BIND: The folder where Jellyfin will store its data
+# BAZARR_BIND: The folder where Bazarr will store its data
 #
 # DOWNLOADS_BIND: The folder where your downloads are stored
 # MOVIES_BIND: The folder where your movies are stored
@@ -61,6 +62,23 @@ services:
       - ${DOWNLOADS_BIND}:/downloads
     ports:
       - 8989:8989
+    networks:
+      - jellyfin
+
+  bazarr:
+    image: linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ${BAZARR_BIND}:/config
+      - ${MOVIES_BIND}:/movies
+      - ${TV_BIND}:/tv
+    ports:
+      - 6767:6767
     networks:
       - jellyfin
 
