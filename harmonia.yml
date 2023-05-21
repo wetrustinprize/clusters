@@ -1,12 +1,11 @@
 # Mega docker-compose file for running all my entertainment media services
 
-# This is a docker-compose file for running Sonarr, Radarr, Bazarr, Lidarr and Jellyfin
+# This is a docker-compose file for running Sonarr, Radarr, Bazarr and Lidarr
 # It is based on the linuxserver.io images
 
 # ENVIRONMENT VARIABLES
 # SONARR_BIND: The folder where Sonarr will store its data
 # RADARR_BIND: The folder where Radarr will store its data
-# JELLYFIN_BIND: The folder where Jellyfin will store its data
 # BAZARR_BIND: The folder where Bazarr will store its data
 # LIDARR_BIND: The folder where Lidarr will store its data
 # PROWLARR_BIND: The folder where Prowlarr will store its data
@@ -19,24 +18,6 @@
 version: "3.7"
 
 services:
-  jellyfin:
-    image: linuxserver/jellyfin:latest
-    container_name: jellyfin
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - ${JELLYFIN_BIND}:/config
-      - ${MOVIES_BIND}:/media/movies
-      - ${TV_BIND}:/media/tv
-      - ${MUSICS_BIND}:/media/music
-    ports:
-      - 8096:8096
-    networks:
-      - harmonia
-
   radarr:
     image: linuxserver/radarr:latest
     container_name: radarr
