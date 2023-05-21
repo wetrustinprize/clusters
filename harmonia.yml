@@ -96,9 +96,6 @@ services:
       - TZ=Europe/London
     volumes:
       - ${PROWLARR_BIND}:/config
-      - ${MOVIES_BIND}:/movies
-      - ${TV_BIND}:/tv
-      - ${MUSICS_BIND}:/music
     ports:
       - 9696:9696
     networks:
